@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+
+	<style>
+    li {margin: 0em 0;}
+    button {min-height: 0px;}
+    .aplayer {margin: 0 0 1.75em 0 !important;}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="2017年，Devops火了，一时间互联网大厂都在谈自动化运维，都在谈Devops实践，从国外的微软谷歌到国内的阿里腾讯，都在做Dveops落地。那么Devops为什么会火呢？ 如同这张漫画，软件研发的功能越来越全面，导致代码更加庞大而复杂，在增加一些新特性的时候，需要投入大量的人力物力来更新及维护代码。即使有优秀的架构师、数据库和运维人员，以及规模庞大的开发和产品经理团队，也很难掌控全局。 手工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Devops时代，腾讯阿里的运维实践（附Devops58个开源工具）">
+<meta property="og:url" content="http://liuzhione.github.io/2018/11/27/devops/index.html">
+<meta property="og:site_name" content="This is my site">
+<meta property="og:description" content="2017年，Devops火了，一时间互联网大厂都在谈自动化运维，都在谈Devops实践，从国外的微软谷歌到国内的阿里腾讯，都在做Dveops落地。那么Devops为什么会火呢？ 如同这张漫画，软件研发的功能越来越全面，导致代码更加庞大而复杂，在增加一些新特性的时候，需要投入大量的人力物力来更新及维护代码。即使有优秀的架构师、数据库和运维人员，以及规模庞大的开发和产品经理团队，也很难掌控全局。 手工">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-27T13:44:42.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Devops时代，腾讯阿里的运维实践（附Devops58个开源工具）">
+<meta name="twitter:description" content="2017年，Devops火了，一时间互联网大厂都在谈自动化运维，都在谈Devops实践，从国外的微软谷歌到国内的阿里腾讯，都在做Dveops落地。那么Devops为什么会火呢？ 如同这张漫画，软件研发的功能越来越全面，导致代码更加庞大而复杂，在增加一些新特性的时候，需要投入大量的人力物力来更新及维护代码。即使有优秀的架构师、数据库和运维人员，以及规模庞大的开发和产品经理团队，也很难掌控全局。 手工">
+
+
+
+
+
+
+  <link rel="canonical" href="http://liuzhione.github.io/2018/11/27/devops/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Devops时代，腾讯阿里的运维实践（附Devops58个开源工具） | This is my site</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+<a href="https://liuzhione.github.io" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">This is my site</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-mymusic">
+    <a href="/mymusic" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-music"></i> <br />我喜欢的音乐</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-navigation">
+    <a href="/navigation" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />网址导航</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liuzhione.github.io/2018/11/27/devops/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Zhi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="This is my site">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Devops时代，腾讯阿里的运维实践（附Devops58个开源工具）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-27 21:44:42" itemprop="dateCreated datePublished" datetime="2018-11-27T21:44:42+08:00">2018-11-27</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Devops/" itemprop="url" rel="index"><span itemprop="name">Devops</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/27/devops/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/11/27/devops/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>2017年，Devops火了，一时间互联网大厂都在谈自动化运维，都在谈Devops实践，从国外的微软谷歌到国内的阿里腾讯，都在做Dveops落地。那么Devops为什么会火呢？</p>
+<p>如同这张漫画，软件研发的功能越来越全面，导致代码更加庞大而复杂，在增加一些新特性的时候，需要投入大量的人力物力来更新及维护代码。即使有优秀的架构师、数据库和运维人员，以及规模庞大的开发和产品经理团队，也很难掌控全局。</p>
+<p>手工编译、上传服务器文件、执行命令、启动停止服务器、发现BUG再重复一遍流程，软件开发的重复劳动越来越多，在Devops概念之前，全部要靠人工手动完成，也看到了很多运维人员半夜起来救急的情况。</p>
+<p>Devops一词来自于Development 和 Operations 的组合，从字面意思理解，就是让软件开发人员和运维人员更好的沟通合作，通过自动化流程让软件开发、测试、发布更快捷。实际上，Devops是对敏捷和精益开发的传承，是在整个IT价值流中实施精益的结果，Devops并不是只一个新的工程师，也不是一个部门，而是一种文化，没有什么工具可以把团队直接变成Devops组织，这是一种观念的转变。</p>
+<p>Devops在高效交付以及自动运维方面的好处让其快速被市场认可并接受，但是在做Devops实践中往往会遇到很大的阻力。</p>
+<p>Devops并不是简单的将开发部门和运维部门合并，而是通过自动化的基础设施、合理的流程规范以及智能的自动运行系统测试使开发和运维之间的沟通协作得到加强。</p>
+<p>这需要开发和运维之间达成共识，并且围绕业务系统来组织工作，弱化职责观念，打破传统IT分组的壁垒。</p>
+<p>在第六届TOP100全球软件案例研究峰会的入选榜单中，我们看到了来自阿里、腾讯、去哪和中国移动的Devops实践案例。</p>
+<p>腾讯运维总监聂鑫：喝着咖啡做运维，腾讯运维完成海量Devops实践</p>
+<p>很多人都在说devops，好像这两年大家都找到了运维的完整解决思路了，好像运维界的“教科书”已经出版了，照着做就能实现运维的新时代，过上喝着咖啡做运维的好日子。</p>
+<p>然而在此之前的运维痛楚和涅磐过程又是怎样的呢？当前腾讯SNG运维维护着十万台规模的服务器，最多一人维护一万台，在天津大爆炸、春节红包等各类突发事件背后都展现出突出的运维能力。</p>
+<p>回顾腾讯运维十年前开始的建设历程，标准化是腾讯SNG运维的海量运营思想的核心理念，需要有一些核心软件和方法论，才能帮助运维少走弯路，突破各种屏障，实现标准化的目标，最终帮助运维和研发向Devops延展。根据业务所处的不同阶段来做投入产出的分析，能影响运维方向的建设，应当尽早的投入和尽可能的深入。</p>
+<p>组建一套运营体系首先需要考虑五至十年的业务规划和选择合适的运营理念。不迷信于某一种运营方法论，选择最合适自己企业的才是最重要的。</p>
+<p>阿里巴巴平台产品负责人陆义元：阿里移动DevOps实践</p>
+<p>移动开发模式已经进入两级分化：超大规模APP的研发模式偏项目式，研发协同的人员、模块较多，需要完整的构建、测试、发布、运维等DevOps体系；而一些创新、试验类的APP在商业模式和业务形态未完全确定的情况下，更适合以较快的方式来测试和验证业务的想法，所以以最低成本快速创建一个 APP 就是当务之急。</p>
+<p>中国移动浙江公司DevOps工具链产品经理罗琼：DevOps平台的“精益创业”之路</p>
+<p>浙江移动的DevOps产品研发团队，服务用户包括对内的几百人规模的开发团队和对外的地市开发团队以及其他对外的移动租户，主要研发产品是建立的是以用户体验为中心的混合云管理平台。</p>
+<p>DevOps的建设，大家做的不尽相同，分为基于构建服务（CI/CD）的研发管理服务和基于公共云服务能力的两种流派。浙江移动的DevOps用户包括对内的几百人规模的开发团队和对外的地市开发团队，我们建立的是以用户体验为中心的混合云平台。</p>
+<p>根据复合理论（Complex Theory）的观点,实施敏捷DevOps要从更多复合、复杂的组织和团队环境中找到突破点，聚焦于痛点问题，把时间“浪费”在“高附加值”的事物上，集中精力不遗余力的解决痛点问题，以此辐射找到适合团队发展的敏捷DevOps之路。</p>
+<p>去哪儿配置管理组组长王晓翔：devops消灭低效的幕后黑手</p>
+<p>Qunar具有先天的devops文化，在研发过程中也有很多自动化工具的支持。由于这些工具由不同专业背景的团队提供，工程师们就要去理解不同工具中特有的概念，记住各个工具间的关系，有时为完成一件事情不得不在多个系统间进行 “人工智能”的切换。借助devops的思想，我们决定拆掉原先“各自为政”的自动化工具的墙，消除信息孤岛，建立以应用为中心的全生命周期管理平台——Portal。所谓全生命周期，是指从需求–开发–测试–交付—运维的一个闭环。</p>
+<p>以上案例已入围第六届TOP100全球软件案例研究峰会，关注TOP100头条号，通过主页菜单栏领域大会免费体验票。</p>
+<p>附：Devops58款开源实用工具</p>
+<p>1.版本控制和协作开发工具</p>
+<p>（1）版本控制系统Git</p>
+<p>（2）代码托管平台 GitLab</p>
+<p>（3）代码评审工具 Gerrit</p>
+<p>（4）版本控制系统 Mercurial</p>
+<p>Mercurial 是一种轻量级分布式版本控制系统，采用 Python 语言实现，易于学习和使用，扩展性强。</p>
+<p>（5）版本控制系统 Subversion</p>
+<p>Subversion 是一个版本控制系统，相对于的 RCS、CVS，采用了分支管理系统，其设计目标是取代CVS。</p>
+<p>（6）版本控制系统 Bazaar</p>
+<p>Bazaar 是一个分布式的版本控制系统，它发布在 GPL 许可协议之下，并可用于 Windows、GNU/Linux、UNIX 以及 Mac OS 系统。</p>
+<p>2.自动化构建和测试工具</p>
+<p>（7）Apache Ant</p>
+<p>Apache Ant是一个将软件编译、测试、部署等步骤联系在一起加以自动化的一个工具，大多用于Java环境中的软件开发。</p>
+<p>（8）Maven</p>
+<p>Maven 除了以程序构建能力为特色之外，还提供 Ant 所缺少的高级项目管理工具。由于 Maven 的缺省构建规则有较高的可重用性，所以常常用两三行 Maven 构建脚本就可以构建简单的项目，而使用 Ant 则需要十几行。</p>
+<p>（9）Selenium集成测试工具</p>
+<p>（10）Python单元测试框架</p>
+<p>（11）QUnit 是 jQuery 的单元测试框架。</p>
+<p>（12）JMeter功能和性能测试的工具，完全用java实现。</p>
+<p>（13）Gradle</p>
+<p>Gradle 是可以使用 Groovy 来书写构建脚本的构建系统，支持依赖管理和多项目，类似 Maven。</p>
+<p>（14）PHPUnit</p>
+<p>PHPUnit 是一个轻量级的PHP测试框架。</p>
+<ol start="3">
+<li>持续集成&amp;交付</li>
+</ol>
+<p>（15）Jenkins可扩展的持续集成引擎</p>
+<p>（16）Capistrano</p>
+<p>Capistrano 是用来并行在多台机器上执行相同命令的工具，使用用来安装一整批机器。</p>
+<p>（17）BuildBot</p>
+<p>BuildBot是进行系统自动化编译/测试周期最需要的软件，用于验证代码的变化。</p>
+<p>（18）Fabric</p>
+<p>fabric8 是开源 Java Containers(JVMs) 深度管理集成平台。能够很方便的从 UI 和 UX 一致的中央位置进行自动操作，配置和管理。fabric8还提供了一些非功能性需求，比如配置管理，服务发现故障转移，集中化监控，自动化等等。</p>
+<p>（19）Tinderbox</p>
+<p>（20）Travis CI</p>
+<p>Travis CI 是一个基于云的持续集成项目， 可以支持大部分主流语言，比如：C，PHP，Ruby，Python, Nodejs等等。</p>
+<p>（21）Continuum是最新的 CI 服务器之一，基于 Web 界面配置容易。</p>
+<p>（22）LuntBuild自动构建工具。通过web接口可以很容易地进行系统的持续构建。</p>
+<p>（23）CruiseControl</p>
+<p>CruiseControl 是一个针对持续构建程序(项目持续集成)的框架,包括email通知的插件，Ant和各种各样的CVS工具，还提供了一个Web接口, 可随时查看当前的编译状况和历史状况</p>
+<p>（24）Integrity是 Ruby 开发的持续集成服务器。</p>
+<p>（25）Gump</p>
+<p>Gump 是 Apache 的整合工具。它以 Python 写成、完全支持 Apache Ant、Apache Maven 等等软件组建工具。</p>
+<p>（26）Go</p>
+<p>Go 是 Google 开发的一种编译型，并发型，并具有垃圾回收功能的编程语言。</p>
+<ol start="4">
+<li>部署工具</li>
+</ol>
+<p>4.1 容器平台</p>
+<p>（27）Docker</p>
+<p>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。</p>
+<p>（28）Rocket</p>
+<p>Rocket （也叫 rkt）是 CoreOS 推出的一款容器引擎，和 Docker 类似，帮助开发者打包应用和依赖包到可移植容器中，简化搭环境等部署工作。</p>
+<p>（29）Ubuntu（LXC）</p>
+<p>LXD 是 ubuntu 基于 LXC 技术的重构，容器天然支持非特权和分布式。LXD 与 Docker 的思路不同，Docker 是 PAAS，LXD 是 IAAS。LXC 项目由一个 Linux 内核补丁和一些 userspace 工具组成。这些 userspace 工具使用由补丁增加的内核新特性，提供一套简化的工具来维护容器。</p>
+<p>4.2 配置管理</p>
+<p>（30）Chef</p>
+<p>Chef 是一个系统集成框架，为整个架构提供配置管理功能。</p>
+<p>（31）Puppet</p>
+<p>Puppet，您可以集中管理每一个重要方面，您的系统使用的是跨平台的规范语言，管理所有的单独的元素通常聚集在不同的文件，如用户， CRON作业，和主机一起显然离散元素，如包装，服务和文件。</p>
+<p>（32）CFengine</p>
+<p>Cfengine（配置引擎）是一种 UNIX 管理工具，其目的是使简单的管理的任务自动化，使困难的任务变得较容易。Cfengine 适用于管理各种环境，从一台主机到上万台主机的机群均可使用。</p>
+<p>（33）Bash</p>
+<p>bash 是大多数Linux系统以及Mac OS X v10.4默认的shell，它能运行于大多数Unix风格的操作系统之上，甚至被移植到了Microsoft Windows上的Cygwin系统中，以实现windows的POSIX虚拟接口。此外，它也被DJGPP项目移植到了MS-DOS上。</p>
+<p>（34）Rudder</p>
+<p>Rudder 已改名为Flannel，为每个使用 Kubernetes 的机器提供一个子网。也就是说 Kubernetes 集群中的每个主机都有自己一个完整的子网，例如机器 A 和 B 可以有 10.0.1.0/24 和 10.0.2.0/24 子网。</p>
+<p>（35）Powershell</p>
+<p>（36）RunDeck</p>
+<p>RunDeck 是用 Java/Grails 写的开源工具，帮助用户在数据中心或者云环境中自动化各种操作和流程。通过命令行或者web界面，用户可以对任意数量的服务器进行操作，大大降低了对服务器自动化的门槛。</p>
+<p>（37）Saltstack</p>
+<p>Saltstack 可以看做是func的增强版+Puppet的弱化版。使用Python编写。非常好用,快速可以基于EPEL部署。Salt 是一个开源的工具用来管理你的基础架构，可轻松管理成千上万台服务器。</p>
+<p>（38）Ansible</p>
+<p>Ansible 是用于发布、管理和编排计算机系统的工具，Ansible 是一个模型驱动的配置管理器，支持多节点发布、远程任务执行。默认使用 SSH 进行远程连接。无需在被管理节点上安装附加软件，可使用各种编程语言进行扩展。</p>
+<p>4.3 微服务平台</p>
+<p>（39）OpenShift</p>
+<p>OpenShift 是由红帽推出的一款面向开源开发人员开放的平台即服务(PaaS)。 OpenShift通过为开发人员提供在语言、框架和云上的更多的选择，使开发人员可以构建、测试、运行和管理他们的应用。</p>
+<p>（40）Cloud Foundry</p>
+<p>Cloud Foundry 是VMware于2011年4月12日推出的业界第一个开源PaaS云平台，它支持多种框架、语言、运行时环境、云平台及应用服务，使开发 人员能够在几秒钟内进行应用程序的部署和扩展，无需担心任何基础架构的问题。</p>
+<p>（41）Kubernetes</p>
+<p>Kubernetes 是来自 Google 云平台的开源容器集群管理系统。基于 Docker 构建一个容器的调度服务。该系统可以自动在一个容器集群中选择一个工作容器供使用。其核心概念是 Container Pod。</p>
+<p>（42）Mesosphere</p>
+<p>Apache Mesos 是一个集群管理器，提供了有效的、跨分布式应用或框架的资源隔离和共享，可以运行Hadoop、MPI、Hypertable、Spark。</p>
+<p>4.4 服务开通</p>
+<p>（43）Puppet</p>
+<p>Puppet，您可以集中管理每一个重要方面，您的系统使用的是跨平台的规范语言，管理所有的单独的元素通常聚集在不同的文件，如用户， CRON作业，和主机一起显然离散元素，如包装，服务和文件。</p>
+<p>（44）Razor</p>
+<p>（45）Docker Swarm</p>
+<p>Docker Swarm 是一个Dockerized化的分布式应用程序的本地集群，它是在Machine所提供的功能的基础上优化主机资源的利用率和容错服务。具体来 说，Docker Swarm支持用户创建可运行Docker Daemon的主机资源池，然后在资源池中运行Docker容器。Docker Swarm可以管理工作负载并维护集群状态。</p>
+<p>（46）Vagrant</p>
+<p>Vagrant 是一个基于 Ruby 的工具，用于创建和部署虚拟化开发环境。它使用 Oracle 的开源 VirtualBox 虚拟化系统，使用 Chef 创建自动化虚拟环境。</p>
+<p>（47）Powershell</p>
+<p>（48）OpenStack Heat</p>
+<ol start="5">
+<li>维护</li>
+</ol>
+<p>5.1日志记录</p>
+<p>（49）Logstash</p>
+<p>Logstash 是一个应用程序日志、事件的传输、处理、管理和搜索的平台。你可以用它来统一对应用程序日志进行收集管理，提供 Web 接口用于查询和统计。</p>
+<p>（50）CollectD</p>
+<p>Collectd 是一个守护(daemon)进程，用来收集系统性能和提供各种存储方式来存储不同值的机制。比如以RRD 文件形式。</p>
+<p>（51）StatsD</p>
+<p>StatsD 是一个简单的网络守护进程，基于 Node.js 平台，通过 UDP 或者 TCP 方式侦听各种统计信息，包括计数器和定时器，并发送聚合信息到后端服务，例如 Graphite。</p>
+<ol start="6">
+<li>监控，警告&amp;分析</li>
+</ol>
+<p>（52）Nagios</p>
+<p>Nagios 是一个监视系统运行状态和网络信息的监视系统。Nagios能监视所指定的本地或远程主机以及服务，同时提供异常通知功能等。</p>
+<p>（53）Ganglia</p>
+<p>Ganglia 是一个跨平台可扩展的，高 性能计算系统下的分布式监控系统，如集群和网格。它是基于分层设计，它使用广泛的技术，如XML数据代表，便携数据传输，RRDtool用于数据存储和可视化。</p>
+<p>（54）Sensu</p>
+<p>Sensu 是开源的监控框架。主要特性：高度可组合；提供一个监控代理，一个事件处理器和文档 APIs；为云而设计；Sensu 的现代化架构允许监控大规模的动态基础设施，能够通过复杂的公共网络监控几千个全球分布式的机器和服务；热情的社区。</p>
+<p>（55）Zabbix</p>
+<p>Zabbix 是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。</p>
+<p>（56）ICINGA</p>
+<p>ICINGA 项目是 由Michael Luebben、HendrikB?cker和JoergLinge等人发起的，他们都是现有的Nagios项目社区委员会的成员，他们承诺，新的开源项 目将完全兼容以前的Nagios应用程序及扩展功能。</p>
+<p>（57）Graphite</p>
+<p>Graphite 是一个用于采集网站实时信息并进行统计的开源项目，可用于采集多种网站服务运行状态信息。Graphite服务平均每分钟有4800次更新操作。</p>
+<p>（58）Kibana</p>
+<p>Kibana 是一个为 Logstash 和 ElasticSearch 提供的日志分析的 Web 接口。可使用它对日志进行高效的搜索、可视化、分析等各种操作。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/27/alisql/" rel="next" title="2016年的文章之alisql开源">
+                <i class="fa fa-chevron-left"></i> 2016年的文章之alisql开源
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/27/http404/" rel="prev" title="http状态码">
+                http状态码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Liu Zhi</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liu Zhi</span>
+
+  
+
+  
+</div>
+
+
+
+
+<!-- -->
+
+<!--
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+-->
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="true"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'eOPggbDYjwozsrG9L3LhxX0B-gzGzoHsz',
+        appKey: 'kIyux3CUYphegOb9ASt2aJdn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+
+</body>
+</html>
